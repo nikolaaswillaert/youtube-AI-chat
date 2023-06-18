@@ -3,28 +3,13 @@ from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings, HuggingFaceInstructEmbeddings
-import langchain.embeddings
 from langchain.vectorstores import FAISS
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from htmlTemplates import css, bot_template, user_template
 from langchain.llms import HuggingFaceHub
-
 from youtube_transcript_api import YouTubeTranscriptApi
-
-
-def get_text_yt():
-    video_id = "https://www.youtube.com/watch?v=8qgIFD0PaWo"
-    video_id = video_id.split("=")
-    video_id = video_id[1]
-    raw_text = YouTubeTranscriptApi.get_transcript(video_id)
-    string = ""
-    for i in raw_text:
-        string += i['text']
-        string += "\n"
-    return string
-
 
 
 def get_pdf_text(pdf_docs):
@@ -34,6 +19,17 @@ def get_pdf_text(pdf_docs):
         for page in pdf_reader.pages:
             text += page.extract_text()
     return text
+
+def get_text_yt(youtubelink):
+    video_id = youtubelink
+    video_id = video_id.split("=")
+    video_id = video_id[1]
+    raw_text = YouTubeTranscriptApi.get_transcript(video_id)
+    string = ""
+    for i in raw_text:
+        string += i['text']
+        string += "\n"
+    return string
 
 
 def get_text_chunks(text):
@@ -48,15 +44,15 @@ def get_text_chunks(text):
 
 
 def get_vectorstore(text_chunks):
-    #embeddings = OpenAIEmbeddings()
-    embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
+    embeddings = OpenAIEmbeddings()
+    # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore
 
 
 def get_conversation_chain(vectorstore):
-    #llm = ChatOpenAI()
-    llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
+    llm = ChatOpenAI()
+    # llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
 
     memory = ConversationBufferMemory(
         memory_key='chat_history', return_messages=True)
@@ -83,8 +79,8 @@ def handle_userinput(user_question):
 
 def main():
     load_dotenv()
-    st.set_page_config(page_title="Chat with multiple PDFs",
-                       page_icon=":books:")
+    st.set_page_config(page_title="Chat with Youtube videos",
+                       page_icon="💢")
     st.write(css, unsafe_allow_html=True)
 
     if "conversation" not in st.session_state:
@@ -92,20 +88,19 @@ def main():
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = None
 
-    st.header("Chat with multiple PDFs :books:")
-    user_question = st.text_input("Ask a question about your documents:")
+    st.header("Chat with Youtube videos 💢")
+    user_question = st.text_input("Ask a question about this video:")
     if user_question:
         handle_userinput(user_question)
 
     with st.sidebar:
-        st.subheader("Your documents")
-        pdf_docs = st.file_uploader(
-            "Upload your PDFs here and click on 'Process'", accept_multiple_files=True)
+        st.subheader("Youtube Video link to chat with")
+        youtubelink = st.text_input("Youtube link")
         if st.button("Process"):
             with st.spinner("Processing"):
                 # get pdf text
-                #raw_text = get_pdf_text(pdf_docs)
-                raw_text = get_text_yt()
+                raw_text = get_text_yt(youtubelink)
+
                 # get the text chunks
                 text_chunks = get_text_chunks(raw_text)
 
@@ -115,10 +110,9 @@ def main():
                 # create conversation chain
                 st.session_state.conversation = get_conversation_chain(
                     vectorstore)
+                
+                st.success("Processed")
 
 
 if __name__ == '__main__':
     main()
-
-
-
