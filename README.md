@@ -24,6 +24,16 @@ Start the application by navigating to the youtube-ai-chat folder and executing 
 streamlit run youtube-ai-chat.py --server.fileWatcherType none
 ```
 
+## Installation using Docker
+Build the docker image using the following command
+```
+docker build . -t app
+```
+when the image has been built, run the docker image:
+```
+docker run -t app
+```
+
 ## Guide
 - Once the Streamlit server is running, open the browser and navigate to:
 ```
