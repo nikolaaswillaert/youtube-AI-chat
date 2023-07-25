@@ -10,7 +10,7 @@ from langchain.chains import ConversationalRetrievalChain
 from htmlTemplates import css, bot_template, user_template
 from langchain.llms import HuggingFaceHub
 from youtube_transcript_api import YouTubeTranscriptApi
-
+import os
 
 
 def get_text_yt(youtubelink):
@@ -71,7 +71,6 @@ def handle_userinput(user_question):
 
 
 def main():
-    load_dotenv()
     st.set_page_config(page_title="Chat with Youtube videos",
                        page_icon="💢")
     st.write(css, unsafe_allow_html=True)
@@ -103,7 +102,6 @@ def main():
                 # create conversation chain
                 st.session_state.conversation = get_conversation_chain(
                     vectorstore)
-                
                 st.success("Processed")
 
 
