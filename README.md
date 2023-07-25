@@ -11,13 +11,13 @@ Works best with videos that have long converstations. Try it out! You only need 
 pip install -r requirements
 ```
 
-**Initialize your OpenAI API-key by entering the following command in the terminal:
+**Initialize your OpenAI API-key by entering the following command in the terminal:**
 ```
 export OPENAI_API_KEY={Your_Openai_Key_Here}
 ```
 
 <br>
-Start the application by navigating to the youtube-ai-chat folder and executing the following command in the terminal (when inside the root folder of this application):
+**Start the application by navigating to the youtube-ai-chat folder and executing the following command in the terminal (when inside the root folder of this application):**
 <br>
 
 ```
