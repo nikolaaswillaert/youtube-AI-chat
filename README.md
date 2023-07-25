@@ -2,8 +2,6 @@
 
 **Install the prerequisites by running the following command:**
 
-<br>
-
 ```
 pip install -r requirements
 ```
