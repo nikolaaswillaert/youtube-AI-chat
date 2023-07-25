@@ -25,7 +25,7 @@ streamlit run youtube-ai-chat.py --server.fileWatcherType none
 Local URL: http://localhost:8501
 ```
 - Paste the url of your youtube podcast / video in the Youtube Link textbox and press 'Process'
-- Once completed you will be able to ask questions about the content of the youtube video
+- Once completed you will be able to interact with the content of the youtube video using OpenAI's llm
 
 
 ## Demo
