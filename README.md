@@ -11,6 +11,10 @@ Works best with videos that have long converstations. Try it out! You only need 
 pip install -r requirements
 ```
 
+**Initialize your OpenAI API-key by entering the following command:
+```
+export OPENAI_API_KEY={Your_Openai_Key_Here}
+```
 
 <br>
 Start the application by navigating to the youtube-ai-chat folder and executing the following command in the terminal:
@@ -18,13 +22,6 @@ Start the application by navigating to the youtube-ai-chat folder and executing 
 
 ```
 streamlit run youtube-ai-chat.py --server.fileWatcherType none
-```
-**Initialize your OpenAI API-key by entering the API key in the terminal (input field). The website won't load if the API key is not filled out** <br>
-![image](https://github.com/nikolaaswillaert/youtube-AI-chat/assets/106211266/e6c2b64a-6422-4324-9a98-7ec14ecbe006)
-
-or run the following command:
-```
-export OPENAI_API_KEY={Your_Openai_Key_Here}
 ```
 
 ## Installation using Docker
