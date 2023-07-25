@@ -1,6 +1,4 @@
 import streamlit as st
-from dotenv import load_dotenv
-from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings, HuggingFaceInstructEmbeddings
 from langchain.vectorstores import FAISS
@@ -71,6 +69,7 @@ def handle_userinput(user_question):
 
 
 def main():
+
     st.set_page_config(page_title="Chat with Youtube videos",
                        page_icon="💢")
     st.write(css, unsafe_allow_html=True)
@@ -88,9 +87,11 @@ def main():
     with st.sidebar:
         st.subheader("Youtube Video link to chat with")
         youtubelink = st.text_input("Youtube link")
+
         if st.button("Process"):
             with st.spinner("Processing"):
-                # get pdf text
+
+                # get Yttext text
                 raw_text = get_text_yt(youtubelink)
 
                 # get the text chunks
