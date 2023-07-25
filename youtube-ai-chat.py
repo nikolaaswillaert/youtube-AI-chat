@@ -69,7 +69,6 @@ def handle_userinput(user_question):
 
 
 def main():
-
     st.set_page_config(page_title="Chat with Youtube videos",
                        page_icon="💢")
     st.write(css, unsafe_allow_html=True)
