@@ -37,4 +37,5 @@ Local URL: http://localhost:8501
 
 
 ## Demo
-[Screencast from 2023-07-25 08-48-56.webm](https://github.com/nikolaaswillaert/youtube-AI-chat/assets/106211266/eb7e5b31-afd7-4c5d-bc0a-f41102395c5b)
+[Screencast from 2023-07-25 08-48-56.webm](https://github.com/nikolaaswillaert/youtube-AI-chat/assets/106211266/fab42a5a-e5c0-42fb-9569-05b768cab64e)
+
