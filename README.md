@@ -1,7 +1,7 @@
 ## Installation
 **Need to initialize your OpenAI API-key by running:** <br>
 ```
-OPENAI_API_KEY='{YOUR_OPENAI_API_KEY_HERE}'
+export OPENAI_API_KEY={Your_Openai_Key_Here}
 ```
 
 <br>
