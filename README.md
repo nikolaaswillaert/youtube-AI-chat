@@ -17,5 +17,5 @@ pip install -r requirements
 <br>
 
 ```
-streamlit run youtube-ai-chat.py
+streamlit run youtube-ai-chat.py --server.fileWatcherType none
 ```
