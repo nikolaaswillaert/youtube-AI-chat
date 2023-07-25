@@ -1,6 +1,5 @@
-.env
 
-/__pycache__ 
-/.vscode
-/.idea
-/ytenv
+/__pycache__/
+/.vscode/
+/.idea/
+/ytenv/
