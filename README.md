@@ -1,7 +1,10 @@
 ## Installation
 
+Need to initialize your OpenAI API-key by running:
 ''' 
-streamlit run LAIZY.py
+pip install -r requirements
+'''
 
-Note: Need to figure out why the sidebar is an essential part - if this is removed a None Error occurs. to do!
+''' 
+streamlit run youtube-ai-chat.py
 '''
