@@ -33,7 +33,10 @@ when the image has been built, run the docker image:
 ```
 docker run -t app
 ```
-
+Run the following command in the interactive docker shell
+```
+export OPENAI_API_KEY={Your_Openai_Key_Here}
+```
 ## Guide
 - Once the Streamlit server is running, open the browser and navigate to:
 ```
