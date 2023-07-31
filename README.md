@@ -1,6 +1,8 @@
 # Chat with your favorite Podcast / Youtube video
 This application allows for an interactive session with your favorite youtube video or podcast. 
-Works best with videos that have long converstations. Try it out! You only need a OpenAI api key to start.
+Works best with videos that have long converstations. Either choose a single youtube video or add a playlist link and set the amount of videos you want to chat to.
+
+Try it out! You only need a OpenAI api key to start.
 
 
 ## Installation
