@@ -96,8 +96,8 @@ def main():
 
     st.header("Chat with Youtube videos 💢")
     user_question = st.text_input("Ask a question about this video:")
-    if user_question:
-        handle_userinput(user_question)
+    
+    success = False
 
     with st.sidebar:
         option = st.radio("Choose a source:", ("YouTube Video", "YouTube Playlist"))
@@ -121,6 +121,7 @@ def main():
                         # create conversation chain
                         st.session_state.conversation = get_conversation_chain(vectorstore)
                         st.success("Processed YouTube Video")
+                        success = True
 
         elif option == "YouTube Playlist":
             st.subheader("YouTube Playlist to chat with")
@@ -145,6 +146,13 @@ def main():
                             # create conversation chain
                             st.session_state.conversation = get_conversation_chain(vectorstore)
                         st.success("Processed Playlist Videos")
+                        success = True
+                    
+    if user_question:
+        try:
+            handle_userinput(user_question)
+        except:
+            st.error('Please Fill out and Process the Youtube Link on the sidebar')
 
 if __name__ == '__main__':
     main()
