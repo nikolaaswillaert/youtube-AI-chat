@@ -8,7 +8,28 @@ from langchain.chains import ConversationalRetrievalChain
 from htmlTemplates import css, bot_template, user_template
 from langchain.llms import HuggingFaceHub
 from youtube_transcript_api import YouTubeTranscriptApi
+from urllib.request import urlopen
+import re
 import os
+
+def get_playlist_urls(link):
+    url_list_playlist = []
+
+    response = urlopen(link)
+    HTML = response.read().decode("utf-8")
+    
+    # http://www.youtube.com/watch?v=3_RhISgoXUs&list=PLED25F943F8D6081C&index=11&feature=plpp_video
+    for i in re.findall(r"http://www\.youtube\.com/watch[^\\&]*", HTML):
+        print(type(i))
+
+    n = 0
+    for i in re.findall(r"/watch\?v=[a-zA-Z0-9\-_]+", HTML):
+        url = "http://www.youtube.com"+i
+        n = n + 1
+        url_list_playlist.append(url)
+    
+    
+    return n, url_list_playlist
 
 
 def get_text_yt(youtubelink):
@@ -84,25 +105,51 @@ def main():
         handle_userinput(user_question)
 
     with st.sidebar:
-        st.subheader("Youtube Video link to chat with")
-        youtubelink = st.text_input("Youtube link")
+        option = st.radio("Choose a source:", ("YouTube Video", "YouTube Playlist"))
 
-        if st.button("Process"):
-            with st.spinner("Processing"):
+        if option == "YouTube Video":
+            st.subheader("Youtube Video link to chat with")
+            youtubelink = st.text_input("YouTube link")
 
-                # get Yttext text
-                raw_text = get_text_yt(youtubelink)
+            if st.button("Process"):
+                with st.spinner("Processing"):
+                    if youtubelink:
+                        # get Yttext text
+                        raw_text = get_text_yt(youtubelink)
 
-                # get the text chunks
-                text_chunks = get_text_chunks(raw_text)
+                        # get the text chunks
+                        text_chunks = get_text_chunks(raw_text)
 
-                # create vector store
-                vectorstore = get_vectorstore(text_chunks)
+                        # create vector store
+                        vectorstore = get_vectorstore(text_chunks)
 
-                # create conversation chain
-                st.session_state.conversation = get_conversation_chain(
-                    vectorstore)
-                st.success("Processed")
+                        # create conversation chain
+                        st.session_state.conversation = get_conversation_chain(vectorstore)
+                        st.success("Processed YouTube Video")
+
+        elif option == "YouTube Playlist":
+            st.subheader("YouTube Playlist to chat with")
+            playlistlink = st.text_input("Playlist link")
+            num_videos = st.selectbox("Max Number of videos to import from playlist", range(1, 51))
+
+            if st.button("Process"):
+                with st.spinner("Processing"):
+                    if playlistlink and num_videos:
+                        count, playlist_urls = get_playlist_urls(playlistlink)
+
+                        for i in range(min(num_videos, count)):
+                            # get Yttext text
+                            raw_text = get_text_yt(playlist_urls[i])
+
+                            # get the text chunks
+                            text_chunks = get_text_chunks(raw_text)
+
+                            # create vector store
+                            vectorstore = get_vectorstore(text_chunks)
+
+                            # create conversation chain
+                            st.session_state.conversation = get_conversation_chain(vectorstore)
+                        st.success("Processed Playlist Videos")
 
 if __name__ == '__main__':
     main()
