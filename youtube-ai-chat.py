@@ -18,7 +18,6 @@ def get_playlist_urls(link):
     response = urlopen(link)
     HTML = response.read().decode("utf-8")
     
-    # http://www.youtube.com/watch?v=3_RhISgoXUs&list=PLED25F943F8D6081C&index=11&feature=plpp_video
     for i in re.findall(r"http://www\.youtube\.com/watch[^\\&]*", HTML):
         print(type(i))
 
@@ -28,9 +27,7 @@ def get_playlist_urls(link):
         n = n + 1
         url_list_playlist.append(url)
     
-    
     return n, url_list_playlist
-
 
 def get_text_yt(youtubelink):
     video_id = youtubelink
@@ -42,7 +39,6 @@ def get_text_yt(youtubelink):
         string += i['text']
         string += "\n"
     return string
-
 
 def get_text_chunks(text):
     text_splitter = CharacterTextSplitter(
@@ -74,7 +70,6 @@ def get_conversation_chain(vectorstore):
         memory=memory
     )
     return conversation_chain
-
 
 def handle_userinput(user_question):
     response = st.session_state.conversation({'question': user_question})
