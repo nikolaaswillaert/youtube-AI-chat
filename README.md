@@ -35,9 +35,11 @@ streamlit run youtube-ai-chat.py --server.fileWatcherType none
 Local URL: http://localhost:8501
 ```
 - Paste the url of your youtube podcast / video in the Youtube Link textbox and press 'Process'
-- Once completed you will be able to interact with the content of the youtube video using OpenAI's llm
+- or paste the url of a youtube playlist in the Youtube Playlist textbox and press 'Process'
+- Once completed you will be able to interact with the content of the youtube video(s) using OpenAI's llm
 
 
 ## Demo
-[Screencast from 2023-07-25 08-48-56.webm](https://github.com/nikolaaswillaert/youtube-AI-chat/assets/106211266/fab42a5a-e5c0-42fb-9569-05b768cab64e)
+[Screencast from 2023-07-31 10-16-43.webm](https://github.com/nikolaaswillaert/youtube-AI-chat/assets/106211266/bc90d096-5139-4a05-934b-f5955859aa5a)
+
 
